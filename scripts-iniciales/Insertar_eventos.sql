@@ -8,7 +8,7 @@ DECLARE
 
     v_total_cliente NUMBER;
     v_total_empleado NUMBER;
-    v_total_categoria  NUMBER;
+    v_total_categoria NUMBER;
     v_total_salon NUMBER;
 
     v_id_cliente NUMBER;
@@ -16,16 +16,20 @@ DECLARE
     v_id_categoria NUMBER;
     v_id_salon NUMBER;
 
-    v_fecha DATE;
+    v_fecha_base DATE;
+    v_fecha_inicio DATE;
+    v_fecha_fin DATE;
     v_hora_inicio_h NUMBER; 
     v_hora_fin_h NUMBER;
-    v_hora_inicio VARCHAR2(8);
-    v_hora_fin VARCHAR2(8);
+    v_minuto_inicio NUMBER;
+    v_minuto_fin NUMBER;
+    
     v_estado VARCHAR2(20);
     v_nombre_cliente VARCHAR2(100);
     v_apellido_cliente VARCHAR2(100);
     v_nombre_categoria VARCHAR2(100);
 BEGIN
+
     SELECT id_cliente   BULK COLLECT INTO v_ids_cliente   FROM cliente;
     SELECT id_empleado  BULK COLLECT INTO v_ids_empleado  FROM empleado;
     SELECT id_categoria BULK COLLECT INTO v_ids_categoria FROM categoria;
@@ -52,16 +56,17 @@ BEGIN
         INTO v_nombre_categoria
         FROM categoria
         WHERE id_categoria = v_id_categoria;
-
-        v_fecha := TO_DATE('2024-01-01', 'YYYY-MM-DD') + TRUNC(DBMS_RANDOM.VALUE(0, 1095));
+ 
+        v_fecha_base := TO_DATE('2024-01-01', 'YYYY-MM-DD') + TRUNC(DBMS_RANDOM.VALUE(0, 1095));
 
         v_hora_inicio_h := TRUNC(DBMS_RANDOM.VALUE(8, 17));  
-        v_hora_fin_h := v_hora_inicio_h + TRUNC(DBMS_RANDOM.VALUE(2, 8));
+        v_hora_fin_h    := v_hora_inicio_h + TRUNC(DBMS_RANDOM.VALUE(2, 8)); 
+        
+        v_minuto_inicio := TRUNC(DBMS_RANDOM.VALUE(0, 60));
+        v_minuto_fin    := TRUNC(DBMS_RANDOM.VALUE(0, 60));
 
-        v_hora_inicio := LPAD(TO_CHAR(v_hora_inicio_h), 2, '0') || ':' ||
-                         LPAD(TO_CHAR(TRUNC(DBMS_RANDOM.VALUE(0, 60))), 2, '0');
-        v_hora_fin := LPAD(TO_CHAR(v_hora_fin_h),    2, '0') || ':' ||
-                         LPAD(TO_CHAR(TRUNC(DBMS_RANDOM.VALUE(0, 60))), 2, '0');
+        v_fecha_inicio := v_fecha_base + (v_hora_inicio_h / 24) + (v_minuto_inicio / 1440);
+        v_fecha_fin    := v_fecha_base + (v_hora_fin_h / 24) + (v_minuto_fin / 1440);
 
         v_estado := CASE TRUNC(DBMS_RANDOM.VALUE(1, 5))
                         WHEN 1 THEN 'Pendiente'
@@ -73,8 +78,8 @@ BEGIN
         INSERT INTO evento (
             id_cliente, id_empleado, id_categoria, id_salon,
             nombre_evento,
-            fecha_inicio, hora_inicio,
-            fecha_fin, hora_fin,
+            fecha_hora_inicio,
+            fecha_hora_fin,
             estado
         )
         VALUES (
@@ -83,8 +88,8 @@ BEGIN
             v_id_categoria,
             v_id_salon,
             v_nombre_categoria || ' de ' || v_nombre_cliente || ' ' || v_apellido_cliente,
-            v_fecha, v_hora_inicio,
-            v_fecha, v_hora_fin,
+            v_fecha_inicio,
+            v_fecha_fin,
             v_estado
         );
 
