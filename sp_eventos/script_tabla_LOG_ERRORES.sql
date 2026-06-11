@@ -1,0 +1,7 @@
+CREATE TABLE LOG_ERRORES (
+    id_log NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    nombre_procedimiento VARCHAR2(100),
+    mensaje_error VARCHAR2(4000),
+    usuario_oracle VARCHAR2(100) DEFAULT USER,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
