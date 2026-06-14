@@ -1,0 +1,80 @@
+
+Recovery Manager: Release 23.26.1.0.0 - Production on Sun Jun 14 02:24:48 2026
+Version 23.26.1.0.0
+
+Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: FREE (not mounted)
+
+RMAN> STARTUP MOUNT;
+database is already started
+database mounted
+
+
+RMAN> RESTORE CONTROLFILE FROM AUTOBACKUP;
+Starting restore at 14-JUN-26
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=199 device type=DISK
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of restore command at 06/14/2026 02:27:52
+RMAN-06496: must use the TO clause when the database is mounted or open
+RMAN Client Diagnostic Trace file : /opt/oracle/diag/clients/user_oracle/RMAN_3368340257_116/trace/ora_rman_24302_0.trc
+
+
+RMAN> ALTER DATABASE MOUNT;
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of sql statement command at 06/14/2026 02:28:57
+ORA-01100: database already mounted
+Help: https://docs.oracle.com/error-help/db/ora-01100/
+
+
+RMAN> RESTORE DATABASE;
+Starting restore at 14-JUN-26
+using channel ORA_DISK_1
+
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of restore command at 06/14/2026 02:29:06
+RMAN-06026: some targets not found - aborting restore
+RMAN-06023: no backup or copy of datafile 14 found to restore
+RMAN-06023: no backup or copy of datafile 13 found to restore
+RMAN-06023: no backup or copy of datafile 12 found to restore
+RMAN-06023: no backup or copy of datafile 11 found to restore
+RMAN-06023: no backup or copy of datafile 9 found to restore
+RMAN-06023: no backup or copy of datafile 7 found to restore
+RMAN-06023: no backup or copy of datafile 4 found to restore
+RMAN-06023: no backup or copy of datafile 3 found to restore
+RMAN-06023: no backup or copy of datafile 2 found to restore
+RMAN-06023: no backup or copy of datafile 1 found to restore
+
+
+RMAN> RECOVER DATABASE;
+Starting recover at 14-JUN-26
+using channel ORA_DISK_1
+
+starting media recovery
+media recovery complete, elapsed time: 00:00:00
+
+Finished recover at 14-JUN-26
+
+
+RMAN> ALTER DATABASE OPEN RESETLOGS;
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of sql statement command at 06/14/2026 02:31:03
+ORA-01139: RESETLOGS option only valid after an incomplete database recovery
+Help: https://docs.oracle.com/error-help/db/ora-01139/
+
+
+RMAN> EXIT
+
+
+Recovery Manager complete.

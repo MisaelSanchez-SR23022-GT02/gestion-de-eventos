@@ -1,0 +1,43 @@
+
+Recovery Manager: Release 23.26.1.0.0 - Production on Sun Jun 14 01:44:24 2026
+Version 23.26.1.0.0
+
+Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: FREE (DBID=1495006740)
+
+RMAN> 
+
+RMAN> CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_15_lun_%U.bkp';
+using target database control file instead of recovery catalog
+old RMAN configuration parameters:
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT   '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+new RMAN configuration parameters:
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT   '/opt/oracle/oradata/bkp_datos_15_lun_%U.bkp';
+new RMAN configuration parameters are successfully stored
+
+
+RMAN> BACKUP INCREMENTAL LEVEL 2 PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_datos_lun_15';
+Starting backup at 14-JUN-26
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=41 device type=DISK
+channel ORA_DISK_1: starting incremental level 2 datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+input datafile file number=00062 name=/opt/oracle/oradata/FREE/53EA64F910F60768E063020011ACF808/datafile/o1_mf_sysaux_o2m70g7y_.dbf
+input datafile file number=00061 name=/opt/oracle/oradata/FREE/53EA64F910F60768E063020011ACF808/datafile/o1_mf_system_o2m70g7s_.dbf
+input datafile file number=00063 name=/opt/oracle/oradata/FREE/53EA64F910F60768E063020011ACF808/datafile/o1_mf_undotbs1_o2m70g7y_.dbf
+input datafile file number=00064 name=/opt/oracle/oradata/FREE/53EA64F910F60768E063020011ACF808/datafile/o1_mf_ts_event_o2m70nn6_.dbf
+channel ORA_DISK_1: starting piece 1 at 14-JUN-26
+channel ORA_DISK_1: finished piece 1 at 14-JUN-26
+piece handle=/opt/oracle/oradata/bkp_datos_15_lun_13rr1q3r_35_1_1.bkp tag=BACKUP_DATOS_LUN_15 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 14-JUN-26
+
+Starting Control File and SPFILE Autobackup at 14-JUN-26
+piece handle=/opt/oracle/product/26ai/dbhomeFree/dbs/c-1495006740-20260614-06 comment=NONE
+Finished Control File and SPFILE Autobackup at 14-JUN-26
+
+
+RMAN> 
+
+Recovery Manager complete.

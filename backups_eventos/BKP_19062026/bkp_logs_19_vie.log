@@ -1,0 +1,68 @@
+
+Recovery Manager: Release 23.26.1.0.0 - Production on Sun Jun 14 02:00:21 2026
+Version 23.26.1.0.0
+
+Copyright (c) 1982, 2026, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: FREE (DBID=1495006740)
+
+RMAN> 
+
+RMAN> CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+using target database control file instead of recovery catalog
+old RMAN configuration parameters:
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT   '/opt/oracle/oradata/bkp_datos_19_vie_%U.bkp';
+new RMAN configuration parameters:
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT   '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+new RMAN configuration parameters are successfully stored
+
+
+RMAN> BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_19_vie';
+Starting backup at 14-JUN-26
+current log archived
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=58 device type=DISK
+channel ORA_DISK_1: starting archived log backup set
+channel ORA_DISK_1: specifying archived log(s) in backup set
+input archived log thread=1 sequence=6 RECID=6 STAMP=1235331151
+input archived log thread=1 sequence=7 RECID=7 STAMP=1235347957
+input archived log thread=1 sequence=8 RECID=8 STAMP=1235407429
+input archived log thread=1 sequence=9 RECID=9 STAMP=1235420163
+input archived log thread=1 sequence=10 RECID=10 STAMP=1235426449
+input archived log thread=1 sequence=11 RECID=11 STAMP=1235442273
+input archived log thread=1 sequence=12 RECID=12 STAMP=1235500667
+input archived log thread=1 sequence=13 RECID=13 STAMP=1235591292
+input archived log thread=1 sequence=14 RECID=14 STAMP=1235603287
+input archived log thread=1 sequence=15 RECID=15 STAMP=1235669569
+input archived log thread=1 sequence=16 RECID=16 STAMP=1235685664
+input archived log thread=1 sequence=17 RECID=17 STAMP=1235707424
+input archived log thread=1 sequence=18 RECID=18 STAMP=1235760632
+input archived log thread=1 sequence=19 RECID=19 STAMP=1235772049
+input archived log thread=1 sequence=20 RECID=20 STAMP=1235792081
+input archived log thread=1 sequence=21 RECID=21 STAMP=1235800816
+input archived log thread=1 sequence=22 RECID=22 STAMP=1235838757
+input archived log thread=1 sequence=23 RECID=23 STAMP=1235853435
+input archived log thread=1 sequence=24 RECID=24 STAMP=1235857138
+input archived log thread=1 sequence=25 RECID=25 STAMP=1235857727
+input archived log thread=1 sequence=26 RECID=26 STAMP=1235866915
+input archived log thread=1 sequence=27 RECID=27 STAMP=1235867620
+input archived log thread=1 sequence=28 RECID=28 STAMP=1235871254
+input archived log thread=1 sequence=29 RECID=29 STAMP=1235871877
+input archived log thread=1 sequence=30 RECID=30 STAMP=1235872258
+input archived log thread=1 sequence=31 RECID=31 STAMP=1235872490
+input archived log thread=1 sequence=32 RECID=32 STAMP=1235872655
+input archived log thread=1 sequence=33 RECID=33 STAMP=1235872823
+channel ORA_DISK_1: starting piece 1 at 14-JUN-26
+channel ORA_DISK_1: finished piece 1 at 14-JUN-26
+piece handle=/opt/oracle/oradata/bkp_archlogs_1lop2r1o_53_1_1.bkp tag=BACKUP_ARCHLOGS_19_VIE comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:15
+Finished backup at 14-JUN-26
+
+Starting Control File and SPFILE Autobackup at 14-JUN-26
+piece handle=/opt/oracle/product/26ai/dbhomeFree/dbs/c-1495006740-20260614-0f comment=NONE
+Finished Control File and SPFILE Autobackup at 14-JUN-26
+
+
+RMAN> 
+
+Recovery Manager complete.

@@ -1,0 +1,117 @@
+Configurar ARCHIVELOG
+
+docker exec -it 045bfce0a78a sqlplus / as sysdba (LINUX)
+
+SHUTDOWN IMMEDIATE; (Apaga la base de datos de forma segura)
+
+STARTUP MOUNT;Enciende la base de datos pero sin dar acceso a usuarios (modo preparación).
+
+ALTER DATABASE ARCHIVELOG; Activa el modo de guardado de registros (histórico de cambios).
+
+ALTER DATABASE OPEN; Abre la base de datos para que los usuarios vuelvan a trabajar.
+
+EXIT; Cierra el panel de control y vuelve a la consola Linux.
+
+
+============================================================================================
+Domingo (Nivel 0 - Backup Completo)
+
+Backup Completo Nivel 0
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_14_dom.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_14_dom_%U.bkp';
+BACKUP INCREMENTAL LEVEL 0 PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_datos_full_14';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_14_dom.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_14_dom';"
+============================================================================================
+Lunes 15 (Nivel 2 - Incremental)
+
+Backup Incremental Nivel 2
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_15_lun.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_15_lun_%U.bkp';
+BACKUP INCREMENTAL LEVEL 2 PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_datos_lun_15';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_15_lun.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_15_lun';"
+
+============================================================================================
+Martes 16 (Nivel 2C - Acumulativo)
+
+Backup Incremental Nivel 2 Acumulativo
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_16_mar.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_16_mar_%U.bkp';
+BACKUP INCREMENTAL LEVEL 2 CUMULATIVE PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_acumulativo_mar_16';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_16_mar.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_16_mar';"
+
+============================================================================================
+Miércoles 17 (Nivel 1 - Incremental)
+
+Backup Incremental Nivel 1
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_17_mie.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_17_mie_%U.bkp';
+BACKUP INCREMENTAL LEVEL 1 PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_datos_mie_17';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_17_mie.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_17_mie';"
+
+============================================================================================
+Jueves 18 (Nivel 2C - Acumulativo)
+
+Backup Incremental Nivel 2 Acumulativo
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_18_jue.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_18_jue_%U.bkp';
+BACKUP INCREMENTAL LEVEL 2 CUMULATIVE PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_acumulativo_jue_18';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_18_jue.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_18_jue';"
+
+============================================================================================
+Viernes 19 (Nivel 2C - Acumulativo)
+
+Backup Incremental Nivel 2 Acumulativo
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_19_vie.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_19_vie_%U.bkp';
+BACKUP INCREMENTAL LEVEL 2 CUMULATIVE PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_acumulativo_vie_19';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_19_vie.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_19_vie';"
+
+============================================================================================
+Sábado 20 (Nivel 2C - Acumulativo)
+
+Backup Incremental Nivel 2 Acumulativo
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_20_sab.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_20_sab_%U.bkp';
+BACKUP INCREMENTAL LEVEL 2 CUMULATIVE PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_acumulativo_sab_20';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_20_sab.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_20_sab';"
+
+============================================================================================
+Domingo 21 (Nivel 0 - Completo)
+
+Backup Completo Nivel 0
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_log_21_dom.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_datos_21_dom_%U.bkp';
+BACKUP INCREMENTAL LEVEL 0 PLUGGABLE DATABASE PDB_EVENTOS TAG 'backup_datos_full_21';"
+
+Backup de Archivelogs
+docker exec -i 045bfce0a78a rman target / log='/opt/oracle/oradata/bkp_logs_21_dom.log' <<< "
+CONFIGURE CHANNEL DEVICE TYPE DISK FORMAT '/opt/oracle/oradata/bkp_archlogs_%U.bkp';
+BACKUP ARCHIVELOG ALL TAG 'backup_archlogs_21_dom';"
